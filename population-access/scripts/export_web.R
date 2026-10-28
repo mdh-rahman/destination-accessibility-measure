@@ -16,5 +16,10 @@ for (geo in c('block_group','tract')) {
  st_write(x,file.path(out,paste0(geo,'.geojson')),delete_dsn=TRUE,quiet=TRUE,layer_options='COORDINATE_PRECISION=5')
 }
 s <- read_csv(file.path(root,cfg$paths$output,'tables/group_access_summary.csv'),show_col_types=FALSE)
-write_json(list(groups=d,outcomes=s,acs_year=cfg$acs_year),file.path(out,'population.json'),dataframe='rows',auto_unbox=TRUE,na='null',digits=5)
+h3 <- read_csv(file.path(p,'h8_population_counts.csv'),show_col_types=FALSE)
+grid <- st_read(file.path(root,cfg$paths$h8_grid),quiet=TRUE) |> st_drop_geometry() |> select(h3_id)
+h3_fields <- unique(c('h3_id',d$group_id,d$denominator))
+h3 <- grid |> left_join(select(h3,any_of(h3_fields)),by='h3_id')
+h3_columns <- lapply(h3, unname)
+write_json(list(groups=d,outcomes=s,h3=h3_columns,acs_year=cfg$acs_year),file.path(out,'population.json'),dataframe='rows',auto_unbox=TRUE,na='null',digits=5)
 file.copy(file.path(root,cfg$paths$output,'tables/group_access_summary.csv'),out,overwrite=TRUE)

@@ -26,7 +26,10 @@ map <- ggplot(map_data) + geom_sf(aes(fill = share), color = NA) + facet_wrap(~g
 ggsave(file.path(output, "figures", "demographic_overview.png"), map, width = 12, height = 8, dpi = 160, bg = "white")
 
 selected <- summary |> filter(region == "metro", !group_id %in% c("total_population", "children_household_universe", "people_of_color")) |>
-  filter((measure == "kth_nearest_time") | (scenario == "jobs_cumulative" & opportunity_field == "total_jobs" & parameter_value == 45) | (scenario == "park_reachable_supply" & opportunity_field == "acreage" & parameter_value == 15)) |>
+  filter((measure == "kth_nearest_time") |
+         (scenario == "jobs_cumulative" & opportunity_field == "total_jobs" &
+            ((mode == "drive" & parameter_value == 30) | (mode == "walk_transit" & parameter_value == 60))) |
+         (scenario == "park_reachable_supply" & opportunity_field == "acreage" & parameter_value == 15)) |>
   mutate(relative_disadvantage = ifelse(measure == "kth_nearest_time", mean_ratio_to_reference,
                                         ifelse(mean_ratio_to_reference > 0, 1 / mean_ratio_to_reference, NA_real_)),
          mode_label = recode(mode, drive = "Auto", walk_transit = "Transit + walk"))
@@ -59,7 +62,7 @@ html <- paste0('<!doctype html><html><head><meta charset="utf-8"><title>Populati
   '<div class="note"><strong>Interpretation.</strong> Accessibility is calculated once for each H3 origin. Demographic counts are origin-side weights used to describe who experiences those conditions. The analysis does not multiply local access by demographic concentration and does not create a single equity score. For travel-time measures, unreachable origins are assigned the documented mode-specific analysis limit in the capped summary; reachability is reported separately.</div>',
   '<h2>Demographic context</h2><p>ACS 2024 five-year block-group estimates. The maps show published block-group geography; H3 counts are modeled allocations used for summaries.</p><img src="figures/demographic_overview.png" alt="Demographic overview">',
   '<h2>Access comparisons</h2><p>Relative disadvantage compares each group with the metro population (or all households for household groups). Travel-time ratios above one mean longer capped travel time. For jobs and park acreage, the ratio is inverted so values above one consistently indicate worse access.</p><img src="figures/group_access_comparison.png" alt="Population access comparison">',
-  '<h2>Peak-period destination results</h2><p>Minutes are capped at 60 for auto and 90 for transit + walk when the required destination is unreachable. Park counts and acreage now include peak results for both modes at 10, 15, and 30 minutes; see the downloadable summary table.</p><div class="scroll">', html_table(table_rows), '</div>',
+  '<h2>Peak-period destination results</h2><p>Minutes are capped at 60 for auto and 90 for transit + walk when the required destination is unreachable. Park acreage includes peak results for both modes at 10, 15, and 30 minutes. Job access retains 15 and 30 minutes for auto and 30 and 60 minutes for transit plus walk.</p><div class="scroll">', html_table(table_rows), '</div>',
   '<h2>Allocation QA</h2><p>Retained share compares the five-county ACS total with the amount allocated to H3 origins in the metro grid. Allocation weights are normalized within each source geography across matched H3 origins, preserving source totals; this does not establish within-cell accuracy.</p>', html_table(qa_display),
   '<h2>Files</h2><ul><li><code>tables/group_access_summary.csv</code></li><li><code>tables/peak_scenario_inventory.csv</code></li><li><code>spatial/block_group_demographics.gpkg</code></li><li><code>spatial/h8_population_counts.csv</code></li></ul>',
   '</body></html>')

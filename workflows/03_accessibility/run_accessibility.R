@@ -80,7 +80,8 @@ calculate_scenario_results <- function(travel_matrix, land_use, scenario, scenar
   results <- list()
   for (opportunity_field in unlist(scenario$opportunity_fields)) {
     if (scenario$method == "cumulative_opportunities") {
-      for (threshold in unlist(scenario$thresholds_minutes)) {
+      thresholds <- scenario$thresholds_minutes_by_mode[[mode]] %||% scenario$thresholds_minutes
+      for (threshold in unlist(thresholds)) {
         value <- calculate_accessibility(
           travel_matrix, land_use, scenario$method, opportunity_field,
           parameters = list(cutoff_minutes = threshold)

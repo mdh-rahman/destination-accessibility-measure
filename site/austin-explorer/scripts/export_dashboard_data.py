@@ -32,7 +32,7 @@ SCENARIOS = {
     },
     "park_reachable_supply": {
         "destination": "Parks and open space", "short": "Parks", "measure": "cumulative",
-        "description": "Number or acreage of eligible parks reachable within the selected threshold",
+        "description": "Acreage of eligible parks reachable within the selected threshold",
         "source": "ParkServe with City of Austin attributes",
     },
     "library_nearest": {
@@ -65,7 +65,7 @@ SCENARIOS = {
 FIELD_LABELS = {
     "total_jobs": "All jobs", "low_wage_jobs": "Low-wage jobs",
     "middle_wage_jobs": "Middle-wage jobs", "high_wage_jobs": "High-wage jobs",
-    "park_count": "Number of parks", "acreage": "Park acreage",
+    "acreage": "Park acreage",
     "facility_count": "Travel time",
 }
 
@@ -136,10 +136,14 @@ def main():
             series = []
             for key, group in groups.items():
                 field, pval = group["field"], group["value"]
+                threshold = int(float(pval)) if pval not in ("", "NA") else None
+                if scenario == "jobs_cumulative":
+                    allowed = {"drive": {15, 30}, "walk_transit": {30, 60}}
+                    if threshold not in allowed.get(mode, set()): continue
+                if scenario == "park_reachable_supply" and field != "acreage": continue
                 if meta["measure"] == "time":
                     label, unit, direction = meta["description"], "minutes", "lower"
                 else:
-                    threshold = str(int(float(pval))) if pval not in ("", "NA") else ""
                     label = f'{FIELD_LABELS.get(field, field.replace("_", " ").title())} within {threshold} minutes'
                     unit = "acres" if field == "acreage" else ("parks" if field == "park_count" else "jobs")
                     direction = "higher"

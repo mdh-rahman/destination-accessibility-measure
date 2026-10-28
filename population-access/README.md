@@ -10,7 +10,7 @@ Run `Rscript population-access/scripts/export_web.R` to create compact public ex
 
 ## Sources and groups
 
-The workflow uses ACS 2024 five-year estimates retrieved through Census Reporter, with the release explicitly checked. Most variables use block groups; disability uses tracts. The dictionary records Census table cells, denominators, units and source geography. Raw API responses remain cached locally. Maps show the original Census reporting geography, not estimated H3 characteristics.
+The workflow uses ACS 2024 five-year estimates retrieved through Census Reporter, with the release explicitly checked. Most variables use block groups; disability uses tracts. The dictionary records Census table cells, denominators, units and source geography. Raw API responses remain cached locally. The public accessibility map uses modeled H3 allocations only to vary opacity and show where a selected group is concentrated; accessibility remains the cell color and does not change among residents of the same origin. Original Census geography remains available in the review outputs.
 
 Groups include age, poverty, disability, vehicle availability, limited-English-speaking households and households with children. The four displayed racial/ethnic categories are Hispanic/Latino, non-Hispanic Black, non-Hispanic White and other non-Hispanic residents. The last category combines Asian, American Indian/Alaska Native, Native Hawaiian/Pacific Islander, other race and multiracial residents. Detailed counts remain in the source preparation. The optional people-of-color summary overlaps the four categories and is not an additional mutually exclusive category. These are descriptive groups, not assumptions about individual needs.
 
@@ -21,6 +21,8 @@ Group means are `sum(accessibility * group_count) / sum(group_count)`. Resident 
 ACS counts are allocated to H3 resolution 8 using 2020 Census block population and representative block points. Weights are normalized within each source geography over matched H3 origins, preserving source totals. Household counts currently use population as a proxy for their within-area distribution. Conservation of totals does not validate the allocation. Census and H3 boundaries, population changes since 2020 and within-block locations introduce uncertainty. Austin summaries select H3 cells whose centers are inside its full-purpose boundary, rather than estimating an exact city population.
 
 For required-destination travel times, unreachable origins are assigned the analysis ceiling (auto 60 minutes; transit 90 minutes) in capped means and percentiles. These values are censored summaries, not actual unreachable travel times. The reachable share and mean among reachable origins are also exported. For cumulative supply, zeros remain zeros and the reached share requires positive supply. No minimum service standard or composite equity index is imposed.
+
+The public job selector retains 15- and 30-minute auto thresholds and 30- and 60-minute transit-plus-walk thresholds. The public parks selector retains acreage within 10, 15, and 30 minutes; park counts remain outside the published interface.
 
 ACS count margins of error are retained and shown where available. There is no blanket reliability suppression; small-area estimates require caution. H3 allocation uncertainty is not included in ACS margins of error.
 

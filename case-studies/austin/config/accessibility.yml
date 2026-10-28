@@ -117,7 +117,9 @@ measures:
     method: cumulative_opportunities
     origin_batch_size: 1000
     opportunity_fields: [total_jobs, low_wage_jobs, middle_wage_jobs, high_wage_jobs]
-    thresholds_minutes: [15, 30, 45, 60]
+    thresholds_minutes_by_mode:
+      drive: [15, 30]
+      walk_transit: [30, 60]
     modes: [drive, walk_transit]
     periods: [am_peak, midday]
   grocery_third_nearest:
@@ -137,7 +139,7 @@ measures:
   park_reachable_supply:
     inventory: parks
     method: cumulative_opportunities
-    opportunity_fields: [park_count, acreage]
+    opportunity_fields: [acreage]
     thresholds_minutes: [10, 15, 30]
     modes: [drive, walk_transit]
     periods: [am_peak, midday]

@@ -28,10 +28,7 @@
           <button data-mode="walk_transit">Transit + walk</button>
           <button data-mode="comparison">Mode comparison</button>
         </div>
-        <div class="two-col">
-          <div><label for="period">Departure time</label><select id="period"></select></div>
-          <div><label for="metric">Measure</label><select id="metric"></select></div>
-        </div>
+        <div class="measure-control"><label for="metric">Measure</label><select id="metric"></select></div>
       </section>
 
       <section class="definition" aria-live="polite">
@@ -43,21 +40,14 @@
 
       <section class="stats" aria-label="Summary statistics">
         <article><span>Median</span><strong id="median">—</strong></article>
-        <article><span>Accessible cells</span><strong id="reachable">—</strong></article>
         <article><span>Regional range</span><strong id="range">—</strong></article>
-      </section>
-
-      <section class="distribution">
-        <div class="section-heading"><h2>Distribution</h2><span id="unitLabel"></span></div>
-        <div class="bars" id="bars"></div>
       </section>
 
       <section class="population-panel control-section">
 <h2>Population &amp; access</h2>
 <label for="populationGroup">Population group</label><select id="populationGroup"><option>Loading…</option></select>
-<label class="switch"><input id="populationMap" type="checkbox"><span></span>Show demographic map</label>
 <p id="populationSource" class="source"></p><div id="populationOutcome" aria-live="polite"></div>
-<details><summary>How to interpret this</summary><p>Group outcomes weight each H3 origin’s accessibility by estimated residents or households. They describe average conditions, not individual trips or needs. No destination-importance weights are applied.</p><p>ACS 2024 five-year counts are allocated using 2020 block population. Household allocations also use population as a proxy. Disability is available at tract scale; other maps use block groups. Small-area estimates and within-area locations are uncertain. Austin summaries use cells whose centers fall inside the full-purpose boundary.</p><p>The four race/ethnicity categories are mutually exclusive. “Other non-Hispanic” combines Asian, American Indian/Alaska Native, Pacific Islander, other-race and multiracial residents. The optional people-of-color summary overlaps these categories and must not be added to them.</p><p>Transit uses the pinned CapMetro network; results do not represent all regional transit providers. Park travel times use representative polygon points rather than verified entrances; acreage includes the entire reachable park.</p></details>
+<details><summary>How to interpret this</summary><p>Accessibility is the same for everyone starting in the same H3 cell. Selecting a group keeps accessibility as the map color and emphasizes cells where that group has a larger local share. The summary is weighted by the estimated residents or households in that group.</p><p>ACS 2024 five-year counts are allocated using 2020 block population. Household allocations also use population as a proxy. Disability is available at tract scale; other groups use block groups. Small-area estimates and within-area locations are uncertain. Austin summaries use cells whose centers fall inside the full-purpose boundary.</p><p>The four race/ethnicity categories are mutually exclusive. “Other non-Hispanic” combines Asian, American Indian/Alaska Native, Pacific Islander, other-race and multiracial residents. The optional people-of-color summary overlaps these categories.</p><p>Transit uses the pinned CapMetro network and does not represent every regional provider. Park routing uses representative polygon points rather than verified entrances; acreage includes the entire reachable park.</p></details>
 <p><a href="data/population/group_access_summary.csv" download>Download group outcomes (CSV)</a> · <a href="population-review/review.html" target="_blank">Review figures &amp; methods</a></p>
 </section>
 <section class="layers">
@@ -76,7 +66,14 @@
         <span id="mapKicker">AUTO · MORNING PEAK</span>
         <h2 id="mapTitle">Loading accessibility results…</h2>
       </div>
-      <div class="legend" id="legend"></div>
+      <aside class="insight-panel" aria-label="Map details">
+        <div class="legend" id="legend"></div>
+        <div class="chart-card">
+          <div class="section-heading"><h2>Distribution</h2><span id="unitLabel"></span></div>
+          <div class="bars" id="bars"></div>
+          <div class="chart-scale"><span id="chartLow">Low</span><span id="chartHigh">High</span></div>
+        </div>
+      </aside>
       <button class="share-button" id="shareButton">Copy view link</button>
       <div class="status" id="status">Loading analysis…</div>
     </section>

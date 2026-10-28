@@ -64,7 +64,7 @@
       "destination": "Parks and open space",
       "short": "Parks",
       "measure": "cumulative",
-      "description": "Number or acreage of eligible parks reachable within the selected threshold",
+      "description": "Acreage of eligible parks reachable within the selected threshold",
       "source": "ParkServe with City of Austin attributes",
       "modes": [
         "drive",

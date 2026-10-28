@@ -32,6 +32,11 @@ summaries <- list(); index <- 1L
 for (path in files) {
   access <- read_csv(path, show_col_types = FALSE)
   manifest <- fromJSON(file.path(dirname(path), "run_manifest.json"))
+  if (manifest$scenario == "park_reachable_supply") access <- filter(access, opportunity_field == "acreage")
+  if (manifest$scenario == "jobs_cumulative") {
+    retained_thresholds <- if (manifest$mode == "drive") c(15, 30) else c(30, 60)
+    access <- filter(access, parameter_value %in% retained_thresholds)
+  }
   access$maximum_trip_minutes <- manifest$maximum_trip_minutes
   access <- left_join(access, demographics, by = c("geography_id" = "h3_id"), relationship = "many-to-one")
   series <- access |> distinct(opportunity_field, parameter_name, parameter_value)
