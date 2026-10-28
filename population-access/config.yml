@@ -1,0 +1,25 @@
+acs_year: 2024
+boundary_year: 2024
+state_fips: "48"
+counties:
+  Bastrop: "021"
+  Caldwell: "055"
+  Hays: "209"
+  Travis: "453"
+  Williamson: "491"
+geography:
+  h3_resolution: 8
+  equal_area_crs: 5070
+analysis:
+  period: am_peak
+  modes: [drive, walk_transit]
+  regions: [metro, austin]
+  reference_group: total_population
+  reliability_moe_ratio: 0.50
+paths:
+  scenario_root: case-studies/austin/outputs/working
+  h8_grid: site/austin-explorer/data/h8-grid.geojson
+  raw: case-studies/austin/data/raw/population_access
+  processed: case-studies/austin/data/processed/population_access
+  output: population-access/output
+

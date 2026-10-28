@@ -14,14 +14,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/jobs_cumulative__drive__am_peak.json",
-        "drive:midday": "data/results/jobs_cumulative__drive__midday.json",
-        "walk_transit:am_peak": "data/results/jobs_cumulative__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/jobs_cumulative__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/jobs_cumulative__walk_transit__am_peak.json"
       }
     },
     {
@@ -30,20 +27,17 @@
       "short": "Grocery",
       "measure": "time",
       "description": "Travel time to the third-nearest grocery store",
-      "source": "USDA SNAP retailers with reviewed DataAxle additions",
+      "source": "USDA SNAP retailers; Data Axle used for comparison and screening",
       "modes": [
         "drive",
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/grocery_third_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/grocery_third_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/grocery_third_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/grocery_third_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/grocery_third_nearest__walk_transit__am_peak.json"
       }
     },
     {
@@ -58,14 +52,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/childcare_fifth_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/childcare_fifth_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/childcare_fifth_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/childcare_fifth_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/childcare_fifth_nearest__walk_transit__am_peak.json"
       }
     },
     {
@@ -80,11 +71,11 @@
         "walk_transit"
       ],
       "periods": [
-        "midday"
+        "am_peak"
       ],
       "files": {
-        "drive:midday": "data/results/park_reachable_supply__drive__midday.json",
-        "walk_transit:midday": "data/results/park_reachable_supply__walk_transit__midday.json"
+        "drive:am_peak": "data/results/park_reachable_supply__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/park_reachable_supply__walk_transit__am_peak.json"
       }
     },
     {
@@ -99,14 +90,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/library_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/library_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/library_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/library_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/library_nearest__walk_transit__am_peak.json"
       }
     },
     {
@@ -121,14 +109,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/pharmacy_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/pharmacy_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/pharmacy_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/pharmacy_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/pharmacy_nearest__walk_transit__am_peak.json"
       }
     },
     {
@@ -143,14 +128,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/hospital_second_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/hospital_second_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/hospital_second_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/hospital_second_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/hospital_second_nearest__walk_transit__am_peak.json"
       }
     },
     {
@@ -165,14 +147,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/urgent_care_third_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/urgent_care_third_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/urgent_care_third_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/urgent_care_third_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/urgent_care_third_nearest__walk_transit__am_peak.json"
       }
     },
     {
@@ -187,14 +166,11 @@
         "walk_transit"
       ],
       "periods": [
-        "am_peak",
-        "midday"
+        "am_peak"
       ],
       "files": {
         "drive:am_peak": "data/results/public_center_nearest__drive__am_peak.json",
-        "drive:midday": "data/results/public_center_nearest__drive__midday.json",
-        "walk_transit:am_peak": "data/results/public_center_nearest__walk_transit__am_peak.json",
-        "walk_transit:midday": "data/results/public_center_nearest__walk_transit__midday.json"
+        "walk_transit:am_peak": "data/results/public_center_nearest__walk_transit__am_peak.json"
       }
     }
   ]

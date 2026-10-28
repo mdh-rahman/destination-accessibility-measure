@@ -72,3 +72,9 @@ _targets/
 !case-studies/austin/example-results/
 !case-studies/austin/example-results/h8_job_accessibility.csv
 review-notes/
+
+/population-access/output/
+
+# Selected public aggregate downloads and review figures
+!site/austin-explorer/data/population/*.csv
+!site/austin-explorer/population-review/figures/*.png

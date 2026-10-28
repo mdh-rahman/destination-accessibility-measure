@@ -52,7 +52,15 @@
         <div class="bars" id="bars"></div>
       </section>
 
-      <section class="layers">
+      <section class="population-panel control-section">
+<h2>Population &amp; access</h2>
+<label for="populationGroup">Population group</label><select id="populationGroup"><option>Loading…</option></select>
+<label class="switch"><input id="populationMap" type="checkbox"><span></span>Show demographic map</label>
+<p id="populationSource" class="source"></p><div id="populationOutcome" aria-live="polite"></div>
+<details><summary>How to interpret this</summary><p>Group outcomes weight each H3 origin’s accessibility by estimated residents or households. They describe average conditions, not individual trips or needs. No destination-importance weights are applied.</p><p>ACS 2024 five-year counts are allocated using 2020 block population. Household allocations also use population as a proxy. Disability is available at tract scale; other maps use block groups. Small-area estimates and within-area locations are uncertain. Austin summaries use cells whose centers fall inside the full-purpose boundary.</p><p>The four race/ethnicity categories are mutually exclusive. “Other non-Hispanic” combines Asian, American Indian/Alaska Native, Pacific Islander, other-race and multiracial residents. The optional people-of-color summary overlaps these categories and must not be added to them.</p><p>Transit uses the pinned CapMetro network; results do not represent all regional transit providers. Park travel times use representative polygon points rather than verified entrances; acreage includes the entire reachable park.</p></details>
+<p><a href="data/population/group_access_summary.csv" download>Download group outcomes (CSV)</a> · <a href="population-review/review.html" target="_blank">Review figures &amp; methods</a></p>
+</section>
+<section class="layers">
         <div class="section-heading"><h2>Reference layers</h2></div>
         <label class="switch"><input id="destinationsToggle" type="checkbox"><span></span>Destination locations</label>
         <label class="switch"><input id="countiesToggle" type="checkbox" checked><span></span>County boundaries</label>
@@ -74,6 +82,7 @@
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="population.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -78,3 +78,7 @@ Austin is the first case study and was developed within the Austin Opportunity I
 ## License
 
 MIT. See `LICENSE` and `NOTICE.md`.
+
+## Population-specific outcomes
+
+See [population-access](population-access/README.md) for the Austin demographic review workflow, group-weighted peak outcomes, and website export steps. The public explorer includes peak park counts and acreage, demographic maps, and downloadable group summaries.

@@ -23,7 +23,7 @@ SCENARIOS = {
     "grocery_third_nearest": {
         "destination": "Grocery stores", "short": "Grocery", "measure": "time",
         "description": "Travel time to the third-nearest grocery store",
-        "source": "USDA SNAP retailers with reviewed DataAxle additions",
+        "source": "USDA SNAP retailers; Data Axle used for comparison and screening",
     },
     "childcare_fifth_nearest": {
         "destination": "Childcare facilities", "short": "Childcare", "measure": "time",
@@ -123,6 +123,7 @@ def main():
         item = {"id": scenario, **meta, "modes": [], "periods": [], "files": {}}
         for csv_path in sorted((RESULTS / scenario).glob("*/*/accessibility.csv")):
             mode, period = csv_path.parts[-3], csv_path.parts[-2]
+            if period != "am_peak": continue
             rows = list(csv.DictReader(csv_path.open()))
             groups = {}
             for row in rows:

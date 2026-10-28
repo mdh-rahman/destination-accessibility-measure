@@ -140,7 +140,7 @@ measures:
     opportunity_fields: [park_count, acreage]
     thresholds_minutes: [10, 15, 30]
     modes: [drive, walk_transit]
-    periods: [midday]
+    periods: [am_peak, midday]
   library_nearest:
     inventory: libraries
     method: kth_nearest_time

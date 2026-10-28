@@ -15,14 +15,18 @@ function scenario(){return state.catalog.scenarios.find(s=>s.id===state.scenario
 function currentSeries(){return state.displaySeries||state.result?.series.find(s=>s.id===state.series)}
 function showStatus(t){$('status').textContent=t;$('status').classList.add('show');setTimeout(()=>$('status').classList.remove('show'),1800)}
 function setOptions(el,items,value,label=x=>x){el.innerHTML=items.map(x=>`<option value="${x}">${label(x)}</option>`).join('');if(items.includes(value))el.value=value;return el.value}
-function updateURL(){const u=new URL(location.href);['scenario','mode','period','series','region'].forEach(k=>u.searchParams.set(k,state[k]));history.replaceState(null,'',u)}
+function updateURL(){const u=new URL(location.href);['scenario','mode','period','series','region','populationGroup','populationMap'].forEach(k=>u.searchParams.set(k,state[k]));history.replaceState(null,'',u)}
 
+let resultRequest=0;
 async function loadResult(){
+  const request=++resultRequest;
   state.displaySeries=null;
   const s=scenario(); const actualMode=state.mode==='comparison'?'drive':state.mode;
   const file=s.files[`${actualMode}:${state.period}`];
   if(!file){showStatus('This combination is not available');return}
-  state.result=await fetch(file).then(r=>r.json());
+  const result=await fetch(file).then(r=>r.json());
+  if(request!==resultRequest)return;
+  state.result=result;
   const choices=state.result.series.map(x=>x.id);
   state.series=setOptions($('metric'),choices,choices.includes(state.series)?state.series:choices[0],id=>state.result.series.find(x=>x.id===id).label);
   let values=[...currentSeries().values];
@@ -30,6 +34,7 @@ async function loadResult(){
     const transitFile=s.files[`walk_transit:${state.period}`];
     if(!transitFile){showStatus('Transit comparison unavailable');return}
     const transit=await fetch(transitFile).then(r=>r.json());
+    if(request!==resultRequest)return;
     const tv=transit.series.find(x=>x.id===state.series)?.values||[];
     const direction=currentSeries().direction;
     values=values.map((auto,i)=>{const tr=tv[i];if(auto==null||tr==null||auto===0||tr===0)return null;return direction==='higher'?tr/auto:auto/tr});
@@ -81,6 +86,7 @@ function render(){
   else{const edges=[-Infinity,...breaks,Infinity];labels=colors.map((c,i)=>[i===0?`≤ ${fmt(edges[1],ser.unit)}`:i===4?`> ${fmt(edges[4],ser.unit)}`:`${fmt(edges[i],ser.unit)}–${fmt(edges[i+1],ser.unit)}`,c])}
   $('legend').innerHTML=`<h3>${ser.unit==='ratio'?'Transit / auto':ser.unit}</h3>`+labels.map(([t,c])=>`<div class="legend-row"><i class="swatch" style="background:${c}"></i><span>${t}</span></div>`).join('')+`<div class="legend-row"><i class="swatch" style="background:#c9ced0"></i><span>Not accessible</span></div>`;
   updateDestinationOverlay();
+  renderPopulation();
 }
 async function updateDestinationOverlay(){if(overlays.destination){map.removeLayer(overlays.destination);delete overlays.destination}if(!$('destinationsToggle').checked||!destinationFiles[state.scenario])return;const gj=await fetch(`data/${destinationFiles[state.scenario]}`).then(r=>r.json());overlays.destination=L.geoJSON(gj,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:4,fillColor:'#d34949',fillOpacity:.9,color:'#fff',weight:1}),style:{color:'#34865e',weight:1,fillOpacity:.14},onEachFeature:(f,l)=>l.bindPopup(`<strong>${f.properties.name||f.properties.NAME||f.properties.facility_name||'Destination'}</strong>`)}).addTo(map)}
 async function toggleOverlay(key,file,style,checked){if(overlays[key]){map.removeLayer(overlays[key]);delete overlays[key]}if(!checked)return;const gj=await fetch(`data/${file}`).then(r=>r.json());overlays[key]=L.geoJSON(gj,{style}).addTo(map);overlays[key].bringToBack()}
@@ -100,6 +106,7 @@ async function init(){
   const q=new URLSearchParams(location.search);state.scenario=q.get('scenario')||'grocery_third_nearest';state.mode=q.get('mode')||'drive';state.period=q.get('period')||'am_peak';state.series=q.get('series');state.region=q.get('region')||'metro';$('region').value=state.region;
   setOptions($('destination'),catalog.scenarios.map(x=>x.id),state.scenario,id=>catalog.scenarios.find(x=>x.id===id).destination);state.scenario=$('destination').value;document.querySelectorAll('.mode-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.mode===state.mode));
   gridLayer=L.geoJSON(grid,{style:{fillColor:'#ddd',fillOpacity:.4,color:'#fff',weight:.25}}).addTo(map);map.fitBounds(gridLayer.getBounds(),{padding:[20,20]});
+  await initPopulation();
   await toggleOverlay('counties','county-boundaries.geojson',{color:'#344e5c',weight:1.3,dashArray:'5 4',fillOpacity:0},true);await changeScenario();if(state.region==='austin')updateRegion();$('status').classList.remove('show');
 }
 $('destination').addEventListener('change',async e=>{state.scenario=e.target.value;state.series=null;await changeScenario()});$('period').addEventListener('change',async e=>{state.period=e.target.value;await loadResult()});$('metric').addEventListener('change',async e=>{state.series=e.target.value;if(state.mode==='comparison')await loadResult();else{state.displaySeries=null;render();updateURL()}});document.querySelectorAll('.mode-tabs button').forEach(b=>b.addEventListener('click',async()=>{state.mode=b.dataset.mode;document.querySelectorAll('.mode-tabs button').forEach(x=>x.classList.toggle('active',x===b));await loadResult()}));
