@@ -37,7 +37,7 @@ async function loadResult(){
     if(request!==resultRequest)return;
     const tv=transit.series.find(x=>x.id===state.series)?.values||[];
     const direction=currentSeries().direction;
-    values=values.map((auto,i)=>{const tr=tv[i];if(auto==null||tr==null||auto===0||tr===0)return null;return direction==='higher'?tr/auto:auto/tr});
+    values=values.map((auto,i)=>{const tr=tv[i];if(auto==null||tr==null)return null;return direction==='higher'?(auto>0?tr/auto:null):(tr>0?auto/tr:null)});
     state.displaySeries={id:state.series,label:'Transit access relative to auto',unit:'ratio',direction:'higher',values};
   }
   render(); updateURL();
@@ -63,7 +63,7 @@ function render(){
     layer.setStyle({fillColor:c,fillOpacity:v==null?.28:.76,color:'#fff',opacity:1,weight:.25});
     layer.bindPopup(`<div class="popup"><strong>${fmt(v,ser.unit)}</strong><small>H8 cell ${layer.feature.properties.h3_id}</small></div>`);
   });
-  const summaryVals=cumulative?positive:vals;
+  const summaryVals=vals;
   const med=quantile(summaryVals,.5), lo=quantile(summaryVals,.05), hi=quantile(summaryVals,.95);
   $('median').textContent=fmt(med,ser.unit);
   const accessible=cumulative?positive.length:vals.length;
