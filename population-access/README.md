@@ -2,6 +2,16 @@
 
 Start here to inspect demographic context and group outcomes before publishing them in the Austin explorer. Routing and destination inventories remain in their existing workflows; this folder adds origin-side population weights, not a new composite accessibility score.
 
+## Current demographic review (2026-10-29)
+
+Open `output/equity-review/review.html` for the current local review; `group_comparisons.csv` contains its complete summaries. Rebuild with `python population-access/scripts/build_equity_review.py --root .` using an environment with pandas and NumPy. This review supersedes the older capped summaries below for interpretation, without changing the public dashboard.
+
+The 12 groups are families with own children under 18, single-parent families, adults 65+, people with disabilities, people below 200% of poverty, no-vehicle households, limited-English households, housing-cost-burdened households, renter households, workers commuting 60+ minutes, Hispanic/Latino residents and non-Hispanic Black residents. Families use ACS B11003; the all-family denominator comes from cached B11003001 and the existing block-population allocation. Long commutes describe usual one-way travel time, not distance. No new demographic downloads are needed.
+
+Low access uses the selected area's resident-weighted distribution: the 75th percentile of travel time or 25th percentile of reachable supply. Austin uses its city-member H3 origins; the metro uses all metro origins. Ties stay together. These are relative comparisons, not minimum-service standards. The Austin table also shows metro reference statistics for context. Within either area, group statistics use each group's own counts and appropriate denominator. Non-reached times are right-censored: full means are unavailable if any weighted observations exceed the routing limit.
+
+Nearest grocery, urgent care, hospital and park are available for both peak modes, alongside the existing kth-nearest measures. Transit park acreage uses 15, 30, 45 and 60 minutes; auto retains 10, 15 and 30. These remain whole-park acres using representative points, not verified entrances. Recalculate with the central runner, for example `Rscript workflows/03_accessibility/run_accessibility.R --scenario grocery_nearest --mode drive --period am_peak`. For an unchanged inventory and matching mode/period, `--reuse-matrix PATH` accepts a retained `travel_matrix_subset.csv` with its neighboring manifest and checks inventory hash and routing limits before reuse. Otherwise the runner extracts the auto matrix or runs the pinned transit network.
+
 ## Run and review
 
 From the DAM repository root, run `Rscript population-access/run_all.R`. Inputs and paths are in `config.yml`. Review `output/review.html`; the complete results are in `output/tables/group_access_summary.csv`. Both the five-county metro and Austin are included. Only morning-peak auto and transit-plus-walk scenarios are selected. Generated outputs are ignored by Git.

@@ -1,0 +1,280 @@
+{
+  "generated_utc": "2026-10-29T16:50:27.241076+00:00",
+  "series": 53,
+  "summary_rows": 1272,
+  "groups": 12,
+  "regions": [
+    "metro",
+    "austin"
+  ],
+  "inputs": [
+    {
+      "path": "population-access/output/demographic-review/austin_metro_demographics_h3_r8.csv",
+      "sha256": "d0453bffd9899f0726ede7da60be71bdd60d864a9bd05ff5a4e04a359f860543"
+    },
+    {
+      "path": "case-studies/austin/data/processed/population_access/block_group_h8_crosswalk.csv",
+      "sha256": "30207442837f348ceefdc46f305edbfdc03c31f4784306e5fa91c8b5643ef6c8"
+    },
+    {
+      "path": "case-studies/austin/data/raw/population_access/review_expanded/acs2024_150_48021_d267fd1ab0.json",
+      "sha256": "0239c050e738d0d0502221e15478e6aa5ba41ba6f0a67e081d34efee7602b611"
+    },
+    {
+      "path": "case-studies/austin/data/raw/population_access/review_expanded/acs2024_150_48055_d267fd1ab0.json",
+      "sha256": "0c2bc948762044d18d3d0dc8402aa940491c440ba216fc00cacc6b4d49cef27f"
+    },
+    {
+      "path": "case-studies/austin/data/raw/population_access/review_expanded/acs2024_150_48209_d267fd1ab0.json",
+      "sha256": "a892cfa94e80b779fcbd3ea4d6630f8c1d1cade288d9a5bdb08785976c3c76b2"
+    },
+    {
+      "path": "case-studies/austin/data/raw/population_access/review_expanded/acs2024_150_48453_d267fd1ab0.json",
+      "sha256": "fc94cdd12e5af04959d1845cbe9122e20a852d1de218ee6efcdaf566ce90fe8a"
+    },
+    {
+      "path": "case-studies/austin/data/raw/population_access/review_expanded/acs2024_150_48491_d267fd1ab0.json",
+      "sha256": "11c8f4d67b3a5e22485c5032559ad0a588b82ce4105680002b10a1a190e4c533"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_fifth_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "9a583b7ec89c6cf60ff867801e24875fe84474be21a1cee26d82736c22cae11d"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_fifth_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "6d0d71f00b985dd1898288e349815cccb7e6048180e626745b5567ef96d3cd57"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_fifth_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "477d99599370312911a0ca55b3bc4285a240b0d5e1283b57df510dbbbca725fa"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_fifth_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "bad3ef7d5575178f2a8242c05dd15296d25e9b6e844fffbd603f7069ca1934bc"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "f9fa316ab4b85fd49aea9e96ed96999cc0dca22122843bc5f6351ef8914b2cb2"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "99500c73b811f92e08ef1481593129f7c31313f20edfdc6869f309d8cd06b99f"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "2ed88c9e60ef7f5bee2724ff84ce2a2f211f687bf6c2cc9ca859327a20d86a7b"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/childcare_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "331708da7b9eb5e4bc4fa3939b1351aedd3524f3536b2c6ea247147bfdd27270"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/essential_destinations/drive/am_peak/accessibility.csv",
+      "sha256": "599e442ad46ee927f3ad2c31a33f0be8b89c56a89a629976f327c63f6e1eba16"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/essential_destinations/drive/am_peak/run_manifest.json",
+      "sha256": "a7475b9a71a0ab390fdb054e77489aa4e4d2a72a3f623b2f36b7f2d4aadfe945"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/essential_destinations/walk_transit/am_peak/accessibility.csv",
+      "sha256": "c6f8db3e1d5c370d454945a926cdab6c5a82ac08398eebfda8eca9c48d95443e"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/essential_destinations/walk_transit/am_peak/run_manifest.json",
+      "sha256": "91c1030598a9c393580513f6a532bec1d1dcfbcc835a878ae6194d20e2a97093"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "76c6f560cb20f5966b45a850035ffed99b1027f8b1fa231593ed34c05fa46f9a"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "cd238e2c89f8a135bd5a189fd42b5a2594a95be692448fb36eab808ab4800b8b"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "30326a8d57490dbc013a5866317290e076bf699519e3537fed563d4bcd1ac43d"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "7e5b1c8fc7970e9aae29c885f71355d2e85bfe582bd465a42cefbefc8f3f9682"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_third_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "e3e27675e57ae6b4c9acabedc1a9e22c1d525b777fb5c9000517cecadf93c58d"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_third_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "88b2b39d832042343a52b495faec2c92c8d72cba853c7f9712fbe9bf2dc2539b"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_third_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "06369da512350c4994067cc0fa6d42de90cdbcc75a7c7b1f3495f3cecdf7648d"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/grocery_third_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "c7791ac68a8d0f94ba79e031cebae109119eafe525385648583733412fd7f1b3"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "6ddb64b0c3eb3d9637666054a462e44d097a2eb06f09e2100ede154531f743c8"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "4dd5da7c13994bd11dbcd9739425a3b7384b924f4bd94cfcc6b522e56e697595"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "2cb8892d984ac098a6bd76feacc68a3c72953b817bf08e3556cd456e9b8244e4"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "8f379b47aaa2f4498568c19dcda9ae0e2adfef31b18feb09389f5ef95483d8a8"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_second_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "f66bd91e8fa51534a23411794d0637013fe71a8a91a81fc78bf89ff25264188c"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_second_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "3c94856911a51e29cbf0c402d70864b297c3ffb5e5b5a4c78768bf6087f89318"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_second_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "4a928e3cc1328eb7fc0530bf795d34e8acfd3b68b778c5ad4be1296c45eb710f"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/hospital_second_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "630098dc2343cfbe48be6cd7a493f4c85f14a04e3ed50686ebf18b336cd8200d"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/jobs_cumulative/drive/am_peak/accessibility.csv",
+      "sha256": "d426fa00fae8f7b35dd9704b13e9f479b961e7340e450978c520dcf5a7b48bbf"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/jobs_cumulative/drive/am_peak/run_manifest.json",
+      "sha256": "2986732f95e74e5c6c0225ddf5600a5889b99b3faaafdfcf470317b3de42687a"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/jobs_cumulative/walk_transit/am_peak/accessibility.csv",
+      "sha256": "9fde6355efdfd830bc4b0ed33914c80ed715fd59f1cd5cb537487a7b9c5e5593"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/jobs_cumulative/walk_transit/am_peak/run_manifest.json",
+      "sha256": "c5d5963331d89d621089978d51f06ef4dd37e0ad7889ef7c5d2c7b8abb11b595"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/library_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "a18b82434c33e8b93ad0ceeb598358eee892af2653535a67050fb6c319231e22"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/library_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "f196fc1df83d3c77d407fa9fc243e1a6cb23e564991a04f98ddeb3cc66a75408"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/library_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "17cb709d53e4af9d7a25969cced8f8466a2d905a0ea19bf8af351af36da58074"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/library_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "3c5bfe292bfee378b83f1a1d6befbd15e12145f80cea5c5d94e6884990be1065"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "a44b70ae558aa5da9889ce16abfdc786c486937d14f3c6a8dad32739680f19aa"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "d2f409d73d37f57f9c12abae73d0c845ff6210333a1ec5bde737c52026fdc762"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "67553652b8678daac1b2669e9e8d0c6a3c6b2082f7e5b2ad18189ed4f778c0e9"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "f6f58ce5449518d5dc27a4ab40fefcd8ebc6ec13a595fe84f9648374ac069542"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_reachable_supply/drive/am_peak/accessibility.csv",
+      "sha256": "e39b232f6f74364b89e2ca3a84856689964bc8935ea895d1fc677cb152fce831"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_reachable_supply/drive/am_peak/run_manifest.json",
+      "sha256": "fd5421d92c280a20b6141fbb2824ea5ace0fb2f2c29ecfa8affd5b1a207bb497"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_reachable_supply/walk_transit/am_peak/accessibility.csv",
+      "sha256": "76ff2f5d6931d74f86b9ad8735ab03299f5650b5bcb844cd25b9fd38fb3bd83a"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/park_reachable_supply/walk_transit/am_peak/run_manifest.json",
+      "sha256": "5159ceb5b6de2a50d512fca5e7ff36559ba97528ef5c9cacc182db7c76e7290e"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/pharmacy_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "319ad6303145710753f06f8bfff7dcab0afb0a3c2a052130202686a98685d06d"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/pharmacy_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "5f55bc86bd8264c9277f021a3b9fb58a72a0a1c1837414b46c54148ca07391f4"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/pharmacy_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "32fa6acc4d61d74d89028de833b5f3968bfc10cf44d8cde892740e485273101e"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/pharmacy_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "d4530b61098f736185cf24f72b383f0e72c615a39ad5fd0dcc9eea608ca3bcc4"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/public_center_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "c011d4f727ef9ba647aa076f98c6382bdc219333364a362632cf1c857f013d36"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/public_center_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "2f837d55f3f3b04a083313fbb8ad045e770bcd0122a8df416d3b408d7bdc8f37"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/public_center_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "43e592b18eb2235f9e84cd840e7f3e13feb6cd65a5f676549dc55d193ef502e0"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/public_center_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "b628771bc1ea2614b3a1c00302d2eb0fc8839463c076b192e804179a1b4dffa7"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "3aaa631ef00b9e104162a3f7ca4f5e8941783c43602f221feeee604139da4103"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "c263eb51d550dc11e0e1a4725c8060cda2780c90e51380ab22f179928278c449"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "c9c9d9486fcd02d0e6b79693986f98a8bb3b0a26af1dc60c263bb144280cf9c4"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "e059f5fca41815254159a8bda99648f4121f338ac02bdc39df17ea88d5ce7fd7"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_third_nearest/drive/am_peak/accessibility.csv",
+      "sha256": "9446ee7e8fe01b98898291150aaf09195f615e17f0b5fbf6bfa87e852cd91855"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_third_nearest/drive/am_peak/run_manifest.json",
+      "sha256": "1a39b0da938506c73fcc9d77db850c3732acfac8987e200f4ad4101565c58d11"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_third_nearest/walk_transit/am_peak/accessibility.csv",
+      "sha256": "16639d771d0593cbe9c7061cb9c02a5f747a8d859ba54c900ee1b88b02e852b8"
+    },
+    {
+      "path": "case-studies/austin/outputs/working/urgent_care_third_nearest/walk_transit/am_peak/run_manifest.json",
+      "sha256": "1b386fcaf87887a94f4a2d16ea08ee095677de2ad381a19d479ae9212fc8c2d3"
+    }
+  ]
+}

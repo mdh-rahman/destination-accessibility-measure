@@ -3,6 +3,25 @@
   "cell_count": 13189,
   "scenarios": [
     {
+      "id": "essential_destinations",
+      "destination": "Essential destinations \u00b7 combined",
+      "short": "Essential destinations",
+      "measure": "aggregate",
+      "description": "Eight equally weighted destination types: grocery, childcare, pharmacy, urgent care, hospital, park, library and public center. Average is shown only when all eight have a modeled route. Reachable-type counts use one nearest facility per category. Jobs and park acreage remain separate.",
+      "source": "Existing reviewed destination inventories and peak travel-time outputs",
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/essential_destinations__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/essential_destinations__walk_transit__am_peak.json"
+      }
+    },
+    {
       "id": "jobs_cumulative",
       "destination": "Jobs",
       "short": "Jobs",
@@ -171,6 +190,101 @@
       "files": {
         "drive:am_peak": "data/results/public_center_nearest__drive__am_peak.json",
         "walk_transit:am_peak": "data/results/public_center_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "grocery_nearest",
+      "destination": "Grocery stores \u00b7 nearest",
+      "short": "Grocery",
+      "measure": "time",
+      "description": "Travel time to the nearest grocery store",
+      "source": "USDA SNAP retailers; Data Axle used for comparison and screening",
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/grocery_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/grocery_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "childcare_nearest",
+      "destination": "Childcare facilities \u00b7 nearest",
+      "short": "Childcare",
+      "measure": "time",
+      "description": "Travel time to the nearest childcare facility",
+      "source": "Texas HHSC licensed and registered operations",
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/childcare_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/childcare_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "hospital_nearest",
+      "destination": "Hospitals \u00b7 nearest",
+      "short": "Hospitals",
+      "measure": "time",
+      "description": "Travel time to the nearest hospital",
+      "source": "CMS NPPES facility records",
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/hospital_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/hospital_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "urgent_care_nearest",
+      "destination": "Urgent care \u00b7 nearest",
+      "short": "Urgent care",
+      "measure": "time",
+      "description": "Travel time to the nearest urgent-care facility",
+      "source": "CMS NPPES and reviewed DataAxle locations",
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/urgent_care_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/urgent_care_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "park_nearest",
+      "destination": "Parks and open space \u00b7 nearest",
+      "short": "Parks",
+      "measure": "time",
+      "description": "Travel time to the nearest eligible park",
+      "source": "ParkServe with City of Austin attributes",
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/park_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/park_nearest__walk_transit__am_peak.json"
       }
     }
   ]

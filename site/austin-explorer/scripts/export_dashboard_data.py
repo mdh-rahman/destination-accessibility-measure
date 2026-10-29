@@ -62,6 +62,9 @@ SCENARIOS = {
     },
 }
 
+for new, old in [('grocery_nearest','grocery_third_nearest'),('childcare_nearest','childcare_fifth_nearest'),('hospital_nearest','hospital_second_nearest'),('urgent_care_nearest','urgent_care_third_nearest'),('park_nearest','park_reachable_supply')]:
+    SCENARIOS[new]={**SCENARIOS[old], 'destination':SCENARIOS[old]['destination']+' · nearest', 'measure':'time', 'description':'Travel time to the nearest '+{'grocery_nearest':'grocery store','childcare_nearest':'childcare facility','hospital_nearest':'hospital','urgent_care_nearest':'urgent-care facility','park_nearest':'eligible park'}[new]}
+
 FIELD_LABELS = {
     "total_jobs": "All jobs", "low_wage_jobs": "Low-wage jobs",
     "middle_wage_jobs": "Middle-wage jobs", "high_wage_jobs": "High-wage jobs",
@@ -162,3 +165,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    import runpy
+    runpy.run_path(str(ROOT / "workflows/03_accessibility/build_destination_basket.py"), run_name="__main__")

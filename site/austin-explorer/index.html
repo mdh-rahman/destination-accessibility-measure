@@ -18,48 +18,27 @@
         <p>Compare access to essential destinations across the five-county Austin metro.</p>
       </header>
 
-      <section class="control-section">
-        <label for="region">Study area</label>
-        <select id="region"><option value="metro">Five-county Austin metro</option><option value="austin">City of Austin (full-purpose)</option></select>
-        <label for="destination">Destination</label>
-        <select id="destination"></select>
-        <div class="mode-tabs" role="group" aria-label="Travel mode">
-          <button data-mode="drive" class="active">Auto</button>
-          <button data-mode="walk_transit">Transit + walk</button>
-          <button data-mode="comparison">Mode comparison</button>
+      <section class="control-section primary-controls">
+        <label for="destination">Destination</label><select id="destination"></select>
+        <label id="modeLabel">Mode</label>
+        <div class="mode-tabs" role="group" aria-labelledby="modeLabel">
+          <button data-mode="drive" class="active">Auto</button><button data-mode="walk_transit">Transit + walk</button><button data-mode="comparison">Mode comparison</button>
         </div>
-        <div class="measure-control"><label for="metric">Measure</label><select id="metric"></select></div>
+        <label for="metric">Accessibility measure</label><select id="metric"></select>
+        <label for="populationGroup">Population group</label><select id="populationGroup"><option>Loading…</option></select>
       </section>
-
-      <section class="definition" aria-live="polite">
-        <span id="measureTag">ACCESS MEASURE</span>
-        <h2 id="measureTitle"></h2>
-        <p id="measureDescription"></p>
-        <p class="source" id="source"></p>
+      <section class="control-section area-control">
+        <label for="region">Study area</label><select id="region"><option value="metro">Five-county Austin metro</option><option value="austin">City of Austin (full-purpose)</option></select>
+        <label for="priorityAreas">Highlight priority areas</label><select id="priorityAreas"><option value="off">Off</option><option value="count">Group count</option><option value="share">Group share</option></select>
+        <p id="priorityNote" aria-live="polite"></p>
+        <h2 id="insightHeading">Population and access</h2>
+        <section id="selectedOrigin" aria-live="polite"></section>
       </section>
-
-      <section class="stats" aria-label="Summary statistics">
-        <article><span>Median</span><strong id="median">—</strong></article>
-        <article><span>Regional range</span><strong id="range">—</strong></article>
-      </section>
-
-      <section class="population-panel control-section">
-<h2>Population &amp; access</h2>
-<label for="populationGroup">Population group</label><select id="populationGroup"><option>Loading…</option></select>
-<p id="populationSource" class="source"></p><div id="populationOutcome" aria-live="polite"></div>
-<details><summary>How to interpret this</summary><p>Accessibility is the same for everyone starting in the same H3 cell. Selecting a group keeps accessibility as the map color and emphasizes cells where that group has a larger local share. The summary is weighted by the estimated residents or households in that group.</p><p>ACS 2024 five-year counts are allocated using 2020 block population. Household allocations also use population as a proxy. Disability is available at tract scale; other groups use block groups. Small-area estimates and within-area locations are uncertain. Austin summaries use cells whose centers fall inside the full-purpose boundary.</p><p>The four race/ethnicity categories are mutually exclusive. “Other non-Hispanic” combines Asian, American Indian/Alaska Native, Pacific Islander, other-race and multiracial residents. The optional people-of-color summary overlaps these categories.</p><p>Transit uses the pinned CapMetro network and does not represent every regional provider. Park routing uses representative polygon points rather than verified entrances; acreage includes the entire reachable park.</p></details>
-<p><a href="data/population/group_access_summary.csv" download>Download group outcomes (CSV)</a> · <a href="population-review/review.html" target="_blank">Review figures &amp; methods</a></p>
-</section>
-<section class="layers">
-        <div class="section-heading"><h2>Reference layers</h2></div>
-        <label class="switch"><input id="destinationsToggle" type="checkbox"><span></span>Destination locations</label>
-        <label class="switch"><input id="countiesToggle" type="checkbox" checked><span></span>County boundaries</label>
-        <label class="switch"><input id="blocksToggle" type="checkbox"><span></span>Census block groups</label>
-      </section>
-      <footer>Prototype results · H8 analysis cells · Updated from validated scenario outputs</footer>
     </aside>
 
     <section class="map-panel">
+      <nav class="view-tabs" aria-label="Analysis view"><button id="mapViewButton" class="active">Map</button><button id="equityViewButton">Chart</button></nav>
+      <section id="equityPanel" hidden aria-label="Population equity analysis"><p id="equityMessage" hidden></p><iframe id="equityFrame" title="Population-weighted accessibility charts"></iframe></section>
       <button class="menu-button" id="menuButton" aria-label="Toggle controls">☰</button>
       <div id="map"></div>
       <div class="map-title">
@@ -68,11 +47,26 @@
       </div>
       <aside class="insight-panel" aria-label="Map details">
         <div class="legend" id="legend"></div>
-        <div class="chart-card">
-          <div class="section-heading"><h2>Distribution</h2><span id="unitLabel"></span></div>
-          <div class="bars" id="bars"></div>
-          <div class="chart-scale"><span id="chartLow">Low</span><span id="chartHigh">High</span></div>
+      </aside>
+      <details class="map-layers"><summary>Layers</summary>
+        <label class="switch"><input id="destinationsToggle" type="checkbox"><span></span>Destination locations</label>
+        <label class="switch"><input id="countiesToggle" type="checkbox" checked><span></span>County boundaries</label>
+        <label class="switch"><input id="blocksToggle" type="checkbox"><span></span>Census block groups</label>
+      </details>
+      <button id="insightsToggle" aria-expanded="true">Map charts</button>
+      <aside class="map-charts" aria-label="Linked population and accessibility charts">
+        <p id="insightUnavailable" hidden></p>
+        <div id="insightContent">
+          <h3>Population and access</h3>
+          <p id="scatterDescription"></p>
+          <canvas id="accessScatter" aria-label="Accessibility by demographic count or share"></canvas>
+          <p id="scatterNotes"></p>
+          <h3>Distribution of access</h3>
+          <canvas id="accessDistribution" aria-label="Population-weighted accessibility distributions"></canvas>
+          <div class="chart-key"><span><i class="group-key"></i>Selected group</span><span><i class="reference-key"></i>Reference population</span><span><i class="selected-key"></i>Selected cell</span></div>
+          <p id="distributionNotes"></p>
         </div>
+        <details><summary>Methods and interpretation</summary><p id="insightNotes"></p></details>
       </aside>
       <button class="share-button" id="shareButton">Copy view link</button>
       <div class="status" id="status">Loading analysis…</div>
@@ -81,5 +75,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="population.js"></script>
   <script src="app.js"></script>
+  <script src="equity.js"></script>
+  <script src="map_insights.js"></script>
 </body>
 </html>

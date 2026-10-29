@@ -165,6 +165,23 @@ matrix_excluded <- 0L
 travel_matrix_records <- 0
 matrix_output <- file.path(scenario_output_dir, "travel_matrix_subset.csv")
 result_chunks <- NULL
+reuse_matrix <- NULL
+if (!is.null(args$reuse_matrix)) {
+  source_manifest <- jsonlite::read_json(file.path(dirname(args$reuse_matrix), "run_manifest.json"), simplifyVector = TRUE)
+  if (!identical(source_manifest$inventory_md5, unname(tools::md5sum(inventory_spec$path))) ||
+      !identical(source_manifest$destination, inventory_name) ||
+      !identical(source_manifest$mode, mode) || !identical(source_manifest$period, period) ||
+      source_manifest$maximum_trip_minutes != mode_spec$maximum_minutes) {
+    stop("Saved matrix provenance does not match this scenario.")
+  }
+  if (mode == "walk_transit" &&
+      (source_manifest$maximum_walk_minutes != mode_spec$max_walk_minutes ||
+       source_manifest$transit_percentile != mode_spec$percentile)) stop("Saved transit settings differ.")
+  reuse_matrix <- read_csv(args$reuse_matrix, show_col_types = FALSE,
+    col_types = cols(from_id = col_character(), to_id = col_character(), travel_time = col_double()))
+  stopifnot(all(reuse_matrix$from_id %in% origin_ids), all(is.finite(reuse_matrix$travel_time)),
+            all(reuse_matrix$travel_time >= 0), all(reuse_matrix$travel_time <= mode_spec$maximum_minutes))
+}
 
 if (mode_spec$backend == "prepared_matrix") {
   destination_cells <- if (identical(inventory_spec$format, "h8_csv")) inventory_ids else {
@@ -187,7 +204,10 @@ if (mode_spec$backend == "prepared_matrix") {
     mutate(across(all_of(names(opportunities)), ~ coalesce(.x, 0)))
   matrix_path <- gsub("\\{period\\}", period, mode_spec$matrix_template)
   batch_size <- as.integer(scenario$origin_batch_size %||% mode_spec$origin_batch_size %||% length(origin_ids))
-  if (batch_size < length(origin_ids)) {
+  if (!is.null(reuse_matrix)) {
+    travel_matrix <- reuse_matrix
+    travel_matrix_records <- nrow(travel_matrix)
+  } else if (batch_size < length(origin_ids)) {
     if (!scenario$method %in% c("cumulative_opportunities", "kth_nearest_time", "gravity_access")) {
       stop("Origin batching is not valid for measure: ", scenario$method)
     }
@@ -228,6 +248,10 @@ if (mode_spec$backend == "prepared_matrix") {
     group_by(id) |>
     summarise(across(everything(), ~ sum(as.numeric(.x), na.rm = TRUE)), .groups = "drop") |>
     mutate(across(all_of(names(opportunities)), ~ coalesce(.x, 0)))
+  if (!is.null(reuse_matrix)) {
+    travel_matrix <- reuse_matrix
+    travel_matrix_records <- nrow(travel_matrix)
+  } else {
   source("workflows/01_networks/r5r_setup.R")
   on.exit(r5r::stop_r5(r5r_network), add = TRUE)
   available_cores <- parallel::detectCores(logical = FALSE)
@@ -264,6 +288,7 @@ if (mode_spec$backend == "prepared_matrix") {
     }
   }
   if (length(origin_batches) == 1L) write_csv(travel_matrix, matrix_output)
+  }
 } else stop("Unsupported mode backend: ", mode_spec$backend)
 
 if (is.null(result_chunks)) {
@@ -303,6 +328,8 @@ jsonlite::write_json(
     origin_records = length(origin_ids),
     travel_matrix_records = travel_matrix_records,
     travel_matrix_retained = file.exists(matrix_output),
+    reused_matrix = args$reuse_matrix %||% NA_character_,
+    reused_matrix_md5 = if (!is.null(args$reuse_matrix)) unname(tools::md5sum(args$reuse_matrix)) else NA_character_,
     maximum_trip_minutes = mode_spec$maximum_minutes,
     maximum_walk_minutes = mode_spec$max_walk_minutes %||% NA_integer_,
     transit_percentile = mode_spec$percentile %||% NA_integer_,

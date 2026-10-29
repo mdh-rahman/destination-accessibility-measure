@@ -140,7 +140,9 @@ measures:
     inventory: parks
     method: cumulative_opportunities
     opportunity_fields: [acreage]
-    thresholds_minutes: [10, 15, 30]
+    thresholds_minutes_by_mode:
+      drive: [10, 15, 30]
+      walk_transit: [15, 30, 45, 60]
     modes: [drive, walk_transit]
     periods: [am_peak, midday]
   library_nearest:
@@ -178,6 +180,46 @@ measures:
     opportunity_fields: [facility_count]
     modes: [drive, walk_transit]
     periods: [am_peak, midday]
+
+  grocery_nearest:
+    inventory: groceries
+    method: kth_nearest_time
+    opportunity_fields: [facility_count]
+    k: 1
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
+  urgent_care_nearest:
+    inventory: urgent_care
+    method: kth_nearest_time
+    opportunity_fields: [facility_count]
+    k: 1
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
+  hospital_nearest:
+    inventory: hospitals
+    method: kth_nearest_time
+    opportunity_fields: [facility_count]
+    k: 1
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
+  park_nearest:
+    inventory: parks
+    method: kth_nearest_time
+    opportunity_fields: [park_count]
+    k: 1
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
+  childcare_nearest:
+    inventory: childcare
+    method: kth_nearest_time
+    opportunity_fields: [facility_count]
+    k: 1
+    modes: [drive, walk_transit]
+    periods: [am_peak]
 
 workflows:
   destination_preparation: case-studies/austin/destinations/README.md
