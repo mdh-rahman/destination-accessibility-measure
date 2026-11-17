@@ -104,3 +104,7 @@ To create a new snapshot, run `workflows/04_shared_data/build_shared_package.py`
 with `--root` pointing to this checkout and `--output` pointing to a NEW dated
 folder. Python 3 and R with sf, yaml and jsonlite are required for packaging.
 The downstream example requires only Python 3. Never overwrite a shared snapshot.
+
+### Center and clinic update — 2026-11-17
+
+Six recalculated AM nearest-facility series cover 13,189 H8 origins for community/social/recreation centers, senior centers, and urgent care/clinics, each by drive and transit plus walking. See `case-studies/austin/destinations/center_clinic_update/HANDOVER.txt`. The new shared snapshot appends these series and preserves November 3 measures as historical; it does not relabel old results. Existing equity summaries in that snapshot retain their original definitions.

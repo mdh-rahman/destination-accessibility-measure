@@ -1,6 +1,7 @@
 from pathlib import Path
 import csv,json,shutil,hashlib,statistics,math
-r=Path('/Users/hamidur.rahman/Projects/destination-accessibility-measure');h=Path('/Users/hamidur.rahman/Projects/atx-opportunity-index/handoff/2026-11-17');out=h/'accessibility';out.mkdir(exist_ok=True)
+import argparse
+ap=argparse.ArgumentParser();ap.add_argument('--root',type=Path,required=True);ap.add_argument('--handoff',type=Path,required=True);args=ap.parse_args();r=args.root;h=args.handoff;h.mkdir(parents=True,exist_ok=True);out=h/'accessibility';out.mkdir(exist_ok=True)
 specs={'community_social_recreation_nearest':'public_center_nearest','senior_center_nearest':'public_center_nearest','urgent_care_clinic_nearest':'urgent_care_nearest'}
 qa=[];combined=[]
 for sc,old in specs.items():
