@@ -78,3 +78,6 @@ review-notes/
 # Selected public aggregate downloads and review figures
 !site/austin-explorer/data/population/*.csv
 !site/austin-explorer/population-review/figures/*.png
+
+# Public aggregate equity comparison downloads
+!site/austin-explorer/population-review/*.csv
