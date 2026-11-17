@@ -111,6 +111,28 @@ inventories:
       facility_count: 1
     source: city and regional government public facility sources
 
+  community_social_recreation:
+    path: case-studies/austin/data/destinations/center_clinic_update_2026-11-17/community_social_recreation.gpkg
+    layer: community_social_recreation
+    id: facility_id
+    opportunities:
+      facility_count: 1
+    source: Reviewed 2026-11-17 center and clinic update; retained review notes
+  senior_centers:
+    path: case-studies/austin/data/destinations/center_clinic_update_2026-11-17/senior_centers.gpkg
+    layer: senior_centers
+    id: facility_id
+    opportunities:
+      facility_count: 1
+    source: Reviewed 2026-11-17 center and clinic update; retained review notes
+  urgent_care_clinics:
+    path: case-studies/austin/data/destinations/center_clinic_update_2026-11-17/urgent_care_clinics.gpkg
+    layer: urgent_care_clinics
+    id: facility_id
+    opportunities:
+      facility_count: 1
+    source: Reviewed 2026-11-17 center and clinic update; retained review notes
+
 measures:
   jobs_cumulative:
     inventory: jobs
@@ -221,6 +243,31 @@ measures:
     modes: [drive, walk_transit]
     periods: [am_peak]
 
+  community_social_recreation_nearest:
+    inventory: community_social_recreation
+    method: kth_nearest_time
+    k: 1
+    opportunity_fields: [facility_count]
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
+  senior_center_nearest:
+    inventory: senior_centers
+    method: kth_nearest_time
+    k: 1
+    opportunity_fields: [facility_count]
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
+  urgent_care_clinic_nearest:
+    inventory: urgent_care_clinics
+    method: kth_nearest_time
+    k: 1
+    opportunity_fields: [facility_count]
+    modes: [drive, walk_transit]
+    periods: [am_peak]
+
 workflows:
   destination_preparation: case-studies/austin/destinations/README.md
   accessibility_runner: workflows/03_accessibility/run_accessibility.R
+

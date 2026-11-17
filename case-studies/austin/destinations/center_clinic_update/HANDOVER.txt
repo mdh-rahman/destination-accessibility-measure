@@ -1,0 +1,9 @@
+2026-11-17 CENTER AND CLINIC ACCESSIBILITY UPDATE
+
+Six AM scenarios completed over 13,189 H3 r8 origins. Community 39, senior 8, clinics 72. Luling excluded; one duplicate Next Level urgent-care address removed. Five Central Health community additions and nine clinical additions. Northeast service disruption and outstanding senior reviews retained. Clinical Education Center inclusion in community category is a user decision. Clinic measure includes primary/convenient/specialty care and must not be labeled urgent-care-only.
+
+Run the three new scenarios in accessibility.yml for drive and walk_transit with workflows/03_accessibility/run_accessibility.R. Existing inputs: ArcGIS AM matrix capped at 60 minutes; pinned CapMetro/OSM r5r network, July 13 2026 07:00–08:59, p50, walk limit 20 minutes, trip cap 90 minutes. Network calendar warning persists; this release does not alter feeds. All six outputs independently matched OD minimum times.
+
+Build a new shared snapshot with workflows/04_shared_data/build_center_clinic_update.py --root DAM_ROOT --baseline OLD_SNAPSHOT --output NEW_SNAPSHOT. Old series remain historical, including combined public centers and NPPES urgent care; do not relabel them. New definitions have separate scenario IDs. Downstream profile scores must explicitly select new series and rebuild. See change_log.csv and source inventory review notes.
+
+Inventory builder expects source/original_centers.gpkg, original_urgent_care.gpkg, county-boundaries.geojson and additions.json from controlled handover storage, not public redistribution.

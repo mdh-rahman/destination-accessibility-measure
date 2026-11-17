@@ -82,3 +82,25 @@ MIT. See `LICENSE` and `NOTICE.md`.
 ## Population-specific outcomes
 
 See [population-access](population-access/README.md) for the Austin demographic review workflow, group-weighted peak outcomes, and website export steps. The public explorer includes peak park counts and acreage, demographic maps, and downloadable group summaries.
+
+## Shared Austin data for team analysis
+
+The dated team snapshot is stored in the existing UT/City SharePoint project
+library under `index-development/data/dam-accessibility/2026-11-03/`.
+Set `DAM_DATA_DIR` to that folder's local synced path (or supply `--data-dir`).
+The portable example runs from either DAM or the main Austin repository:
+
+```sh
+python workflows/04_shared_data/analyze_shared_data.py --verify
+```
+
+It verifies the package and summarizes nearest-grocery accessibility without
+rerouting. The package's `README.txt` explains all files, units, source discrepancies
+and transit limitations. The snapshot includes cleaned eligible destinations,
+origin-level results, ACS counts/denominators, and geography. Shared files remain
+outside Git; this does not change the routing runner's existing input paths.
+
+To create a new snapshot, run `workflows/04_shared_data/build_shared_package.py`
+with `--root` pointing to this checkout and `--output` pointing to a NEW dated
+folder. Python 3 and R with sf, yaml and jsonlite are required for packaging.
+The downstream example requires only Python 3. Never overwrite a shared snapshot.
