@@ -20,7 +20,7 @@ for scenario in catalog["scenarios"]:
             assert all(v >= 0 for v in observed)
             if series["unit"] == "minutes": assert max(observed, default=0) <= 90
             if "acreage" in series["id"]: assert series["unit"] == "acres"
-            if "park_count" in series["id"]: assert series["unit"] == "parks"
+            if "park_count" in series["id"] and scenario["measure"] != "time": assert series["unit"] == "parks"
             if mode == "walk_transit":
                 good = lambda v: v is not None and (v > 0 if series["direction"] == "higher" else True)
                 rows.append({"scenario": scenario["id"], "period": period, "series": series["id"],

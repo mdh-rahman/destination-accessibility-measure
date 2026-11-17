@@ -24,6 +24,10 @@ GROUPS = [
  ('black_nh','Non-Hispanic Black','people','race_ethnicity_universe','All residents with race/ethnicity data')]
 LABELS={'childcare_nearest':'Nearest childcare facility','essential_destinations':'Essential destination types reachable','grocery_nearest':'Nearest grocery store','urgent_care_nearest':'Nearest urgent care','hospital_nearest':'Nearest hospital','park_nearest':'Nearest park','childcare_fifth_nearest':'Fifth childcare facility','grocery_third_nearest':'Third grocery store','hospital_second_nearest':'Second hospital','library_nearest':'Nearest library','pharmacy_nearest':'Nearest pharmacy','public_center_nearest':'Nearest public center','urgent_care_third_nearest':'Third urgent care','jobs_cumulative':'Jobs reachable','park_reachable_supply':'Park acreage reachable'}
 
+for obsolete in ("public_center_nearest", "urgent_care_nearest", "urgent_care_third_nearest"):
+    LABELS.pop(obsolete)
+LABELS.update({"community_social_recreation_nearest":"Nearest community/social/recreation center", "senior_center_nearest":"Nearest senior center", "urgent_care_clinic_nearest":"Nearest urgent care/clinic"})
+
 def quantile(x,w,p):
     ok=(w>0)&np.isfinite(w)&~np.isnan(x)
     if not ok.any(): return np.nan

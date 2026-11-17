@@ -65,6 +65,28 @@ SCENARIOS = {
 for new, old in [('grocery_nearest','grocery_third_nearest'),('childcare_nearest','childcare_fifth_nearest'),('hospital_nearest','hospital_second_nearest'),('urgent_care_nearest','urgent_care_third_nearest'),('park_nearest','park_reachable_supply')]:
     SCENARIOS[new]={**SCENARIOS[old], 'destination':SCENARIOS[old]['destination']+' · nearest', 'measure':'time', 'description':'Travel time to the nearest '+{'grocery_nearest':'grocery store','childcare_nearest':'childcare facility','hospital_nearest':'hospital','urgent_care_nearest':'urgent-care facility','park_nearest':'eligible park'}[new]}
 
+# Replace the superseded inventories in the public selector. Historical runs remain on disk.
+for obsolete in ("public_center_nearest", "urgent_care_nearest", "urgent_care_third_nearest"):
+    SCENARIOS.pop(obsolete)
+UPDATED_INVENTORIES = {
+    "community_social_recreation_nearest": ("Community/social/recreation centers", "community_social_recreation", 39),
+    "senior_center_nearest": ("Senior centers", "senior_centers", 8),
+    "urgent_care_clinic_nearest": ("Urgent care/clinics", "urgent_care_clinics", 72),
+}
+for key, (label, filename, count) in UPDATED_INVENTORIES.items():
+    SCENARIOS[key] = {"destination": label, "short": label, "measure": "time",
+        "description": "Travel time to the nearest " + {"community_social_recreation_nearest": "community/social/recreation center", "senior_center_nearest": "senior center", "urgent_care_clinic_nearest": "urgent-care facility or clinic"}[key],
+        "source": "Reviewed center and clinic inventory, 2026-11-17", "inventory_count": count}
+
+def export_updated_locations():
+    folder = ROOT / "case-studies/austin/data/destinations/center_clinic_update_2026-11-17"
+    for key, (label, filename, count) in UPDATED_INVENTORIES.items():
+        rows = list(csv.DictReader((folder / (filename + ".csv")).open()))
+        assert len(rows) == count
+        features = [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [float(row["longitude"]), float(row["latitude"])]},
+            "properties": {"name": row["facility_name"], "facility_type": row["facility_type"]}} for row in rows]
+        (OUT / (filename + ".geojson")).write_text(json.dumps({"type": "FeatureCollection", "features": features}, separators=(",", ":")))
+
 FIELD_LABELS = {
     "total_jobs": "All jobs", "low_wage_jobs": "Low-wage jobs",
     "middle_wage_jobs": "Middle-wage jobs", "high_wage_jobs": "High-wage jobs",
@@ -161,6 +183,7 @@ def main():
     with (OUT / "catalog.json").open("w") as f:
         json.dump(catalog, f, indent=2)
 
+    export_updated_locations()
     print(f"Packaged {len(catalog['scenarios'])} scenarios and {len(ids):,} H8 cells")
 
 if __name__ == "__main__":

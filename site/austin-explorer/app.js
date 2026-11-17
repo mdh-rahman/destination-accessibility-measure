@@ -12,6 +12,7 @@ let gridLayer;
 
 const fmt=(v,u)=>v==null?'Not accessible':u==='types'?`${Number.isInteger(v)?v:v.toFixed(1)} of 8 types`:u==='minutes'?`${v.toFixed(1)} min`:u==='acres'?`${Math.round(v).toLocaleString()} acres`:u==='jobs'?Math.round(v).toLocaleString():u==='ratio'?`${Math.round(v*100)}%`:`${v.toFixed(2)}`;
 const quantile=(a,q)=>{if(!a.length)return null;const p=(a.length-1)*q,b=Math.floor(p),r=p-b;return a[b+1]!==undefined?a[b]+r*(a[b+1]-a[b]):a[b]};
+Object.assign(destinationFiles,{community_social_recreation_nearest:'community_social_recreation.geojson',senior_center_nearest:'senior_centers.geojson',urgent_care_clinic_nearest:'urgent_care_clinics.geojson'});
 function scenario(){return state.catalog.scenarios.find(s=>s.id===state.scenario)}
 function currentSeries(){return state.displaySeries||state.result?.series.find(s=>s.id===state.series)}
 function showStatus(t){$('status').textContent=t;$('status').classList.add('show');setTimeout(()=>$('status').classList.remove('show'),1800)}
@@ -98,6 +99,7 @@ function updateRegion(){
 async function init(){
   const [catalog,grid,cityBoundary]=await Promise.all([fetch('data/catalog.json').then(r=>r.json()),fetch('data/h8-grid.geojson').then(r=>r.json()),fetch('data/austin-full-purpose.geojson').then(r=>r.json())]);state.catalog=catalog;state.grid=grid;state.cityBoundary=cityBoundary;grid.features.forEach((f,i)=>f._i=i);
   const q=new URLSearchParams(location.search);state.scenario=q.get('scenario')||'grocery_third_nearest';state.mode=q.get('mode')||'drive';state.period='am_peak';state.series=q.get('series');state.region=q.get('region')||'metro';$('region').value=state.region;
+  const aliases={public_center_nearest:'community_social_recreation_nearest',urgent_care_nearest:'urgent_care_clinic_nearest',urgent_care_third_nearest:'urgent_care_clinic_nearest'};if(aliases[state.scenario]){state.scenario=aliases[state.scenario];state.series=null;}
   setOptions($('destination'),catalog.scenarios.map(x=>x.id),state.scenario,id=>catalog.scenarios.find(x=>x.id===id).destination);state.scenario=$('destination').value;document.querySelectorAll('.mode-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.mode===state.mode));
   gridLayer=L.geoJSON(grid,{onEachFeature:(f,l)=>l.on('click',()=>{if((state.region==='metro'||f.properties.region==='austin')&&window.selectInsight)window.selectInsight(f._i);}),style:{fillColor:'#ddd',fillOpacity:.4,color:'#fff',weight:.25}}).addTo(map);map.fitBounds(gridLayer.getBounds(),{padding:[20,20]});
   await initPopulation();

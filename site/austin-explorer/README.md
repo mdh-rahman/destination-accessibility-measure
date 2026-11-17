@@ -18,7 +18,7 @@ compact outputs; raw downloads and routing matrices stay outside Git.
 
 ## Essential-destination basket
 
-The combined selector uses the nearest grocery, childcare, pharmacy, urgent care, hospital, park, library and public center, with equal category weights. An origin mean is calculated only if all eight have a modeled route; incomplete origins remain unavailable, not zero. Category counts within 15, 30 or 60 minutes retain zeros and range from 0 to 8. Click an origin to inspect all component times. Population-weighted area means are unavailable if any weighted origins have incomplete values; complete-data coverage is reported separately. Map median/range for basket travel time describe only complete origins.
+The combined selector uses the nearest grocery, childcare, pharmacy, urgent care/clinics, hospital, park, library and community/social/recreation center, with equal category weights. An origin mean is calculated only if all eight have a modeled route; incomplete origins remain unavailable, not zero. Category counts within 15, 30 or 60 minutes retain zeros and range from 0 to 8. Click an origin to inspect all component times. Population-weighted area means are unavailable if any weighted origins have incomplete values; complete-data coverage is reported separately. Map median/range for basket travel time describe only complete origins.
 
 Rebuild using `python site/austin-explorer/scripts/export_dashboard_data.py`; this also runs `workflows/03_accessibility/build_destination_basket.py`. The latter can be run independently to refresh only the combined measure. Its CSVs and input hashes are saved under `case-studies/austin/outputs/working/essential_destinations/<mode>/am_peak/`. The basket is a prototype equal-category summary, not a validated minimum-service standard or a multi-stop itinerary.
 
@@ -31,3 +31,7 @@ After exporting dashboard measures, run `python population-access/scripts/build_
 ### Simplified explorer controls
 
 The sidebar now presents Destination, Mode, Accessibility measure and Population group, followed by Study area. Definitions, statistics and review downloads are available through Chart rather than repeated in the map sidebar. Reference-layer switches are in the map's collapsed Layers menu. Population selection changes chart weighting and popup demographic information; it does not change map colors or opacity. The Map / Chart tabs retain the existing `view=equity` URL for compatibility.
+
+## November 17, 2026 inventory refresh
+
+The explorer uses the 39 community/social/recreation centers, 8 separate senior centers, and 72 urgent-care/clinic locations from the dated release. Both morning-peak modes, point overlays, and 12-group equity charts are rebuilt from the corresponding results. The combined eight-category basket uses the updated community and clinic inventories; senior centers remain a separate measure, avoiding an implicit additional category weight. Historical combined-center and urgent-care-only runs remain archived outside the selector. Old links redirect to the updated nearest-facility measure. The existing transit service-calendar limitation still applies.

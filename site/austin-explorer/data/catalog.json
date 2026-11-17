@@ -7,7 +7,7 @@
       "destination": "Essential destinations \u00b7 combined",
       "short": "Essential destinations",
       "measure": "aggregate",
-      "description": "Eight equally weighted destination types: grocery, childcare, pharmacy, urgent care, hospital, park, library and public center. Average is shown only when all eight have a modeled route. Reachable-type counts use one nearest facility per category. Jobs and park acreage remain separate.",
+      "description": "Eight equally weighted destination types: grocery, childcare, pharmacy, urgent care/clinics, hospital, park, library and community/social/recreation center. Senior centers are available separately. Average is shown only when all eight have a modeled route. Reachable-type counts use one nearest facility per category. Jobs and park acreage remain separate.",
       "source": "Existing reviewed destination inventories and peak travel-time outputs",
       "modes": [
         "drive",
@@ -155,44 +155,6 @@
       }
     },
     {
-      "id": "urgent_care_third_nearest",
-      "destination": "Urgent care",
-      "short": "Urgent care",
-      "measure": "time",
-      "description": "Travel time to the third-nearest urgent-care facility",
-      "source": "CMS NPPES and reviewed DataAxle locations",
-      "modes": [
-        "drive",
-        "walk_transit"
-      ],
-      "periods": [
-        "am_peak"
-      ],
-      "files": {
-        "drive:am_peak": "data/results/urgent_care_third_nearest__drive__am_peak.json",
-        "walk_transit:am_peak": "data/results/urgent_care_third_nearest__walk_transit__am_peak.json"
-      }
-    },
-    {
-      "id": "public_center_nearest",
-      "destination": "Public community and senior centers",
-      "short": "Public centers",
-      "measure": "time",
-      "description": "Travel time to the nearest public community or senior center",
-      "source": "City and regional government facility sources",
-      "modes": [
-        "drive",
-        "walk_transit"
-      ],
-      "periods": [
-        "am_peak"
-      ],
-      "files": {
-        "drive:am_peak": "data/results/public_center_nearest__drive__am_peak.json",
-        "walk_transit:am_peak": "data/results/public_center_nearest__walk_transit__am_peak.json"
-      }
-    },
-    {
       "id": "grocery_nearest",
       "destination": "Grocery stores \u00b7 nearest",
       "short": "Grocery",
@@ -250,25 +212,6 @@
       }
     },
     {
-      "id": "urgent_care_nearest",
-      "destination": "Urgent care \u00b7 nearest",
-      "short": "Urgent care",
-      "measure": "time",
-      "description": "Travel time to the nearest urgent-care facility",
-      "source": "CMS NPPES and reviewed DataAxle locations",
-      "modes": [
-        "drive",
-        "walk_transit"
-      ],
-      "periods": [
-        "am_peak"
-      ],
-      "files": {
-        "drive:am_peak": "data/results/urgent_care_nearest__drive__am_peak.json",
-        "walk_transit:am_peak": "data/results/urgent_care_nearest__walk_transit__am_peak.json"
-      }
-    },
-    {
       "id": "park_nearest",
       "destination": "Parks and open space \u00b7 nearest",
       "short": "Parks",
@@ -285,6 +228,66 @@
       "files": {
         "drive:am_peak": "data/results/park_nearest__drive__am_peak.json",
         "walk_transit:am_peak": "data/results/park_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "community_social_recreation_nearest",
+      "destination": "Community/social/recreation centers",
+      "short": "Community/social/recreation centers",
+      "measure": "time",
+      "description": "Travel time to the nearest community/social/recreation center",
+      "source": "Reviewed center and clinic inventory, 2026-11-17",
+      "inventory_count": 39,
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/community_social_recreation_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/community_social_recreation_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "senior_center_nearest",
+      "destination": "Senior centers",
+      "short": "Senior centers",
+      "measure": "time",
+      "description": "Travel time to the nearest senior center",
+      "source": "Reviewed center and clinic inventory, 2026-11-17",
+      "inventory_count": 8,
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/senior_center_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/senior_center_nearest__walk_transit__am_peak.json"
+      }
+    },
+    {
+      "id": "urgent_care_clinic_nearest",
+      "destination": "Urgent care/clinics",
+      "short": "Urgent care/clinics",
+      "measure": "time",
+      "description": "Travel time to the nearest urgent-care facility or clinic",
+      "source": "Reviewed center and clinic inventory, 2026-11-17",
+      "inventory_count": 72,
+      "modes": [
+        "drive",
+        "walk_transit"
+      ],
+      "periods": [
+        "am_peak"
+      ],
+      "files": {
+        "drive:am_peak": "data/results/urgent_care_clinic_nearest__drive__am_peak.json",
+        "walk_transit:am_peak": "data/results/urgent_care_clinic_nearest__walk_transit__am_peak.json"
       }
     }
   ]

@@ -7,19 +7,19 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 ROOT=Path(__file__).resolve().parents[2]
-BASKET={'grocery_nearest':'Grocery','childcare_nearest':'Childcare','pharmacy_nearest':'Pharmacy','urgent_care_nearest':'Urgent care','hospital_nearest':'Hospital','park_nearest':'Park','library_nearest':'Library','public_center_nearest':'Public center'}
+BASKET={'grocery_nearest':'Grocery','childcare_nearest':'Childcare','pharmacy_nearest':'Pharmacy','urgent_care_clinic_nearest':'Urgent care/clinic','hospital_nearest':'Hospital','park_nearest':'Park','library_nearest':'Library','community_social_recreation_nearest':'Community/social/recreation center'}
 THRESHOLDS=[15,30,60]
 def main():
  site=ROOT/'site/austin-explorer';working=ROOT/'case-studies/austin/outputs/working'
  ids=[f['properties']['h3_id'] for f in json.loads((site/'data/h8-grid.geojson').read_text())['features']]
- item={'id':'essential_destinations','destination':'Essential destinations · combined','short':'Essential destinations','measure':'aggregate','description':'Eight equally weighted destination types: grocery, childcare, pharmacy, urgent care, hospital, park, library and public center. Average is shown only when all eight have a modeled route. Reachable-type counts use one nearest facility per category. Jobs and park acreage remain separate.','source':'Existing reviewed destination inventories and peak travel-time outputs','modes':['drive','walk_transit'],'periods':['am_peak'],'files':{}}
+ item={'id':'essential_destinations','destination':'Essential destinations · combined','short':'Essential destinations','measure':'aggregate','description':'Eight equally weighted destination types: grocery, childcare, pharmacy, urgent care/clinics, hospital, park, library and community/social/recreation center. Senior centers are available separately. Average is shown only when all eight have a modeled route. Reachable-type counts use one nearest facility per category. Jobs and park acreage remain separate.','source':'Existing reviewed destination inventories and peak travel-time outputs','modes':['drive','walk_transit'],'periods':['am_peak'],'files':{}}
  for mode in item['modes']:
   values=[];valid=[];sources=[]
   for scenario in BASKET:
    p=working/scenario/mode/'am_peak/accessibility.csv';meta=json.loads(p.with_name('run_manifest.json').read_text());assert meta['mode']==mode and meta['period']=='am_peak';assert meta['maximum_trip_minutes']==(60 if mode=='drive' else 90);f=pd.read_csv(p,dtype={'geography_id':str});assert f.geography_id.is_unique and len(f)==len(ids)
    assert set(f.geography_id)==set(ids) and (f.parameter_value==1).all()
    f=f.set_index('geography_id').reindex(ids)
-   x=f.access_value.to_numpy(float); known=f.is_reachable.isin([True,False]).to_numpy() & (~f.is_reachable | np.isfinite(x)).to_numpy()
+   x=f.access_value.to_numpy(float, copy=True); known=f.is_reachable.isin([True,False]).to_numpy() & (~f.is_reachable | np.isfinite(x)).to_numpy()
    x[~f.is_reachable.to_numpy(bool)]=np.nan
    values.append(x);valid.append(known);sources.append({'file':str(p.relative_to(ROOT)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
   matrix=np.array(values).T;assert (matrix[np.isfinite(matrix)]>=0).all();known=np.array(valid).T.all(axis=1);reached=np.isfinite(matrix).sum(axis=1);complete=known&(reached==len(BASKET))
